@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EmployeeCreateRequest;
-use App\Models\Employee;
-use App\Models\User;
+use App\Models\Furlough;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
-class EmployeeController extends Controller
+class FurloughController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,9 +24,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $this->authorize('create employee');
-
-        return Inertia::render('EmployeeCreate', []);
+        //
     }
 
     /**
@@ -38,32 +33,18 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeeCreateRequest $request)
+    public function store(Request $request)
     {
-        $this->authorize('create employee');
-
-        $user = new User;
-        $user->fill($request->validated());
-        $user->password = bcrypt($user->password);
-        $user->save();
-
-        $employee = Employee::create([
-            'name' => $user->name,
-            'user_id' => $user->id,
-        ]);
-
-        $user->assignRole('Employee');
-
-        return back();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
+     * @param  \App\Models\Furlough  $furlough
      * @return \Illuminate\Http\Response
      */
-    public function show(Employee $employee)
+    public function show(Furlough $furlough)
     {
         //
     }
@@ -71,10 +52,10 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
+     * @param  \App\Models\Furlough  $furlough
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employee $employee)
+    public function edit(Furlough $furlough)
     {
         //
     }
@@ -83,10 +64,10 @@ class EmployeeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Employee  $employee
+     * @param  \App\Models\Furlough  $furlough
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, Furlough $furlough)
     {
         //
     }
@@ -94,10 +75,10 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Employee  $employee
+     * @param  \App\Models\Furlough  $furlough
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+    public function destroy(Furlough $furlough)
     {
         //
     }
