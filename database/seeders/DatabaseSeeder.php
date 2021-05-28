@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -92,6 +93,13 @@ class DatabaseSeeder extends Seeder
                 $permission = Permission::where('name', $name)->first();
                 $role->givePermissionTo($permission);
             }
+        }
+
+        if (! Setting::where('name', 'max_annual_furlough')->count()) {
+            Setting::create([
+                'name' => 'max_annual_furlough',
+                'value' => '5',
+            ]);
         }
     }
 }
