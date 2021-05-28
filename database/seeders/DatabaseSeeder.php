@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
@@ -43,6 +44,54 @@ class DatabaseSeeder extends Seeder
                 'email' => 'employee@gmail.com',
                 'password' => bcrypt('password'),
             ])->assignRole('Employee');
+        }
+
+        if (! Permission::count()) {
+            $names = [
+                'create employee',
+                'change setting',
+                'approve furlough',
+                'propose furlough',
+                'view employee',
+            ];
+            foreach ($names as $name) {
+                Permission::create(['name' => $name]);
+            }
+        }
+
+        $roles = [
+            [
+                'name' => 'Admin',
+                'permissions' => [
+                    'create employee',
+                    'change setting',
+                    'approve furlough',
+                    'propose furlough',
+                    'view employee',
+                ],
+            ],
+            [
+                'name' => 'HR',
+                'permissions' => [
+                    'create employee',
+                    'change setting',
+                    'approve furlough',
+                    'view employee',
+                ],
+            ],
+            [
+                'name' => 'Employee',
+                'permissions' => [
+                    'propose furlough',
+                ],
+            ],
+        ];
+        foreach ($roles as $item) {
+            $role = Role::where('name', $item['name'])->first();
+            foreach ($item['permissions'] as $name) {
+                $permission = Permission::where('name', $name)->first();
+                $role->givePermissionTo($permission);
+            }
         }
     }
 }
