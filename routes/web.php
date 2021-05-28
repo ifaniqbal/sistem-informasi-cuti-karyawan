@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeFurloughController;
+use App\Http\Controllers\FurloughController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('employees', EmployeeController::class);
     Route::resource('settings', SettingController::class);
+    Route::resource('furloughs', FurloughController::class);
 
     Route::get('/employees/{employee}/furloughs/propose', [EmployeeFurloughController::class, 'create'])
         ->name('employees.furloughs.create');

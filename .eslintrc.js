@@ -13,6 +13,7 @@ module.exports = {
     "vue/require-default-prop": "off",
     "vue/component-tags-order": "off",
     "vue/no-arrow-functions-in-watch": "off",
-    "vue/script-indent": ["error", 2, { "baseIndent": 0 }]
+    "vue/script-indent": ["error", 2, { "baseIndent": 0 }],
+    "vue/require-v-for-key": "off",
   }
 }

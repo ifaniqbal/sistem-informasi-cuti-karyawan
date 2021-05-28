@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Furlough;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class FurloughController extends Controller
 {
@@ -14,7 +15,13 @@ class FurloughController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('approve furlough');
+
+        return Inertia::render('FurloughIndex', [
+            'furloughs' => Furlough::with('employee')
+                ->orderBy('id', 'desc')
+                ->get(),
+        ]);
     }
 
     /**
